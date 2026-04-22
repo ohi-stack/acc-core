@@ -1,0 +1,366 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://onegodian.org/schemas/agent-context-profile.schema.json",
+  "title": "Onegodian Agent Context Profile",
+  "description": "Validation schema for governed agent registration, authority scoping, workflow alignment, and oversight metadata.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "agent_identity",
+    "mission_context",
+    "legal_context",
+    "temporal_context",
+    "workflow_context",
+    "human_sync_point",
+    "ethical_safeguards",
+    "memory_protocol"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "agent_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agent_name_code",
+        "agent_class",
+        "assigned_territory_domain",
+        "primary_system_platform"
+      ],
+      "properties": {
+        "agent_name_code": {
+          "type": "string",
+          "minLength": 1,
+          "title": "Agent Name / Code (OAIAID)"
+        },
+        "internal_uuid": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "agent_class": {
+          "type": "string",
+          "enum": [
+            "Real Estate",
+            "Legal",
+            "Cultural",
+            "Spiritual",
+            "Technical"
+          ]
+        },
+        "assigned_territory_domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "primary_system_platform": {
+          "type": "string",
+          "minLength": 1
+        },
+        "environment": {
+          "type": "string",
+          "enum": ["dev", "staging", "production"],
+          "default": "dev"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        }
+      }
+    },
+    "mission_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "core_assignment_purpose",
+        "primary_role_in_multi_step_workflow",
+        "alignment_with_sovereign_objective"
+      ],
+      "properties": {
+        "core_assignment_purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "primary_role_in_multi_step_workflow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "alignment_with_sovereign_objective": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "legal_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "jurisdictions",
+        "key_legal_references",
+        "restrictions_boundaries"
+      ],
+      "properties": {
+        "jurisdictions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "INO",
+              "UCC",
+              "CT State",
+              "Federal",
+              "International",
+              "OBP-1™"
+            ]
+          }
+        },
+        "key_legal_references": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "default": []
+        },
+        "restrictions_boundaries": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "spiritual_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "spiritual_alignment_required": {
+          "type": "boolean",
+          "default": false
+        },
+        "divine_or_ancestral_protocols_to_observe": {
+          "type": "string"
+        },
+        "ritual_invocation_trigger_points": {
+          "type": "string"
+        }
+      }
+    },
+    "temporal_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "onegodian_calendar_reference",
+        "deadlines_cycles"
+      ],
+      "properties": {
+        "onegodian_calendar_reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "deadlines_cycles": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dimensional_timing_layer": {
+          "type": "string"
+        },
+        "gregorian_timestamp_required": {
+          "type": "boolean",
+          "const": true,
+          "default": true
+        },
+        "timezone": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "workflow_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "step_sequence",
+        "dependencies_preconditions",
+        "output_deliverables"
+      ],
+      "properties": {
+        "step_sequence": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "dependencies_preconditions": {
+          "type": "string",
+          "minLength": 1
+        },
+        "output_deliverables": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "human_sync_point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assigned_human_overseer",
+        "escalation_protocol"
+      ],
+      "properties": {
+        "assigned_human_overseer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "escalation_protocol": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mentorship_training_agent": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "dynamic_variables": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "key_fields_agent_must_update": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "default": []
+        },
+        "environmental_inputs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "default": []
+        }
+      }
+    },
+    "ethical_safeguards": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sovereign_restrictions",
+        "spiritual_integrity_boundaries",
+        "error_containment_plan"
+      ],
+      "properties": {
+        "sovereign_restrictions": {
+          "type": "string",
+          "minLength": 1
+        },
+        "spiritual_integrity_boundaries": {
+          "type": "string",
+          "minLength": 1
+        },
+        "error_containment_plan": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "memory_protocol": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "logs_stored_in",
+        "data_retention_duration",
+        "archive_path"
+      ],
+      "properties": {
+        "logs_stored_in": {
+          "type": "string",
+          "enum": [
+            "OBP-1™",
+            "OHI™",
+            "Sovereign Dashboard",
+            "Other"
+          ]
+        },
+        "data_retention_duration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "archive_path": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "authority_controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "requires_ocp_authorization": {
+          "type": "boolean",
+          "default": true
+        },
+        "allowed_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "default": []
+        },
+        "approval_required_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "default": []
+        },
+        "prohibited_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "default": []
+        }
+      }
+    },
+    "audit_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "created_by": {
+          "type": "string"
+        },
+        "approved_by": {
+          "type": "string"
+        },
+        "effective_date_gregorian": {
+          "type": "string",
+          "format": "date"
+        },
+        "effective_date_ot": {
+          "type": "string"
+        },
+        "record_status": {
+          "type": "string",
+          "enum": ["draft", "active", "suspended", "archived"],
+          "default": "draft"
+        }
+      }
+    }
+  }
+}
