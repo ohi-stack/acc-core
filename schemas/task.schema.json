@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://onegodian.org/schemas/task.schema.json",
+  "title": "ACC Task",
+  "description": "Validation schema for ACC task intake, queue lifecycle, and governed execution payloads.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "type",
+    "status",
+    "payload",
+    "submitted_by",
+    "correlation_id",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "created",
+        "validated",
+        "queued",
+        "reserved",
+        "running",
+        "completed",
+        "failed",
+        "cancelled",
+        "dead-lettered"
+      ]
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10,
+      "default": 5
+    },
+    "payload": {
+      "type": "object"
+    },
+    "submitted_by": {
+      "type": "string",
+      "minLength": 1
+    },
+    "assigned_agent_id": {
+      "type": ["string", "null"]
+    },
+    "workflow_id": {
+      "type": ["string", "null"]
+    },
+    "correlation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "retry_count": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 0
+    },
+    "error_message": {
+      "type": ["string", "null"]
+    },
+    "result_payload": {
+      "type": ["object", "null"]
+    },
+    "requires_approval": {
+      "type": "boolean",
+      "default": false
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": ["not_required", "pending", "approved", "denied"],
+      "default": "not_required"
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"],
+      "default": "low"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "started_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "timestamp_ot": {
+      "type": ["string", "null"]
+    },
+    "timezone": {
+      "type": ["string", "null"]
+    }
+  }
+}
