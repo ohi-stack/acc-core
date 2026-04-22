@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://onegodian.org/schemas/workflow.schema.json",
+  "title": "ACC Workflow",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","id","type","status","definition_version","steps","created_at"],
+  "properties": {
+    "schema_version": {"type":"string","const":"1.0.0"},
+    "id": {"type":"string","minLength":1},
+    "type": {"type":"string","minLength":1},
+    "status": {"type":"string","enum":["draft","pending","running","paused","completed","failed","cancelled"]},
+    "definition_version": {"type":"string","minLength":1},
+    "context_payload": {"type":"object"},
+    "parent_task_id": {"type":["string","null"]},
+    "steps": {
+      "type":"array",
+      "minItems":1,
+      "items": {
+        "type":"object",
+        "required":["id","name","order","status"],
+        "properties": {
+          "id":{"type":"string"},
+          "name":{"type":"string"},
+          "order":{"type":"integer","minimum":1},
+          "status":{"type":"string","enum":["pending","running","completed","failed","skipped"]},
+          "depends_on":{"type":"array","items":{"type":"string"},"default":[]}
+        },
+        "additionalProperties":false
+      }
+    },
+    "created_at": {"type":"string","format":"date-time"},
+    "updated_at": {"type":["string","null"],"format":"date-time"}
+  }
+}
