@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://acc.onegodian.com/schemas/execution-provider.schema.json",
+  "title": "ACC Execution Provider",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "label", "category", "maturity", "executable", "requiresConnection"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": [
+        "acc-runner",
+        "omos",
+        "openai-agents",
+        "openai-dot",
+        "openai-codex",
+        "chatgpt-work",
+        "external-mcp",
+        "human"
+      ]
+    },
+    "label": { "type": "string", "minLength": 1 },
+    "category": {
+      "type": "string",
+      "enum": ["internal", "openai", "external", "human"]
+    },
+    "maturity": {
+      "type": "string",
+      "enum": ["available", "connected", "external", "reserved"]
+    },
+    "executable": { "type": "boolean" },
+    "requiresConnection": { "type": "boolean" },
+    "notes": { "type": "string" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "id": { "const": "openai-dot" } }, "required": ["id"] },
+      "then": {
+        "properties": {
+          "maturity": { "const": "reserved" },
+          "executable": { "const": false }
+        }
+      }
+    }
+  ]
+}
