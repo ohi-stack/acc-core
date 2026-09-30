@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://acc.onegodian.com/schemas/responsibility.schema.json",
+  "title": "ACC Persistent Responsibility",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "id",
+    "projectId",
+    "name",
+    "status",
+    "provider",
+    "ownerId",
+    "requiresHumanApproval"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^rsp-" },
+    "projectId": { "type": "string", "minLength": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["DRAFT", "ACTIVE", "PAUSED", "BLOCKED", "ARCHIVED"]
+    },
+    "provider": {
+      "type": "string",
+      "enum": [
+        "acc-runner",
+        "omos",
+        "openai-agents",
+        "openai-dot",
+        "openai-codex",
+        "chatgpt-work",
+        "external-mcp",
+        "human"
+      ]
+    },
+    "ownerId": { "type": "string", "minLength": 1 },
+    "cadence": { "type": "string" },
+    "triggers": { "type": "array", "items": { "type": "object" } },
+    "requiresHumanApproval": { "type": "boolean" }
+  }
+}
