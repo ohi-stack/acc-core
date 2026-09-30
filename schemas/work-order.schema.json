@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://acc.onegodian.com/schemas/work-order.schema.json",
+  "title": "ACC Work Order",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "id",
+    "projectId",
+    "objective",
+    "provider",
+    "status",
+    "riskLevel",
+    "requiresHumanApproval",
+    "requestedBy"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^wo-" },
+    "projectId": { "type": "string", "minLength": 1 },
+    "responsibilityId": { "type": ["string", "null"] },
+    "objective": { "type": "string", "minLength": 1 },
+    "context": { "type": "object" },
+    "provider": {
+      "type": "string",
+      "enum": [
+        "acc-runner",
+        "omos",
+        "openai-agents",
+        "openai-dot",
+        "openai-codex",
+        "chatgpt-work",
+        "external-mcp",
+        "human"
+      ]
+    },
+    "executorRef": { "type": ["string", "null"] },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PLANNED",
+        "READY",
+        "BLOCKED",
+        "QUEUED",
+        "RUNNING",
+        "AWAITING_APPROVAL",
+        "COMPLETED",
+        "FAILED",
+        "CANCELLED"
+      ]
+    },
+    "riskLevel": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+    },
+    "requiresHumanApproval": { "type": "boolean" },
+    "approvalSatisfied": { "type": "boolean" },
+    "requestedBy": { "type": "string", "minLength": 1 },
+    "assignedTo": { "type": ["string", "null"] },
+    "requiredTools": { "type": "array", "items": { "type": "string" } },
+    "files": { "type": "array", "items": { "type": "string" } },
+    "dependencies": { "type": "array", "items": { "type": "string" } },
+    "schedule": { "type": ["object", "null"] },
+    "trigger": { "type": ["object", "null"] },
+    "artifacts": { "type": "array" },
+    "verification": { "type": "object" },
+    "deploymentEvidence": { "type": "object" }
+  }
+}
