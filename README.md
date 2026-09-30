@@ -6,6 +6,10 @@ ACC Core is the shared control-plane contract layer for the canonical ACC™ pla
 
 ACC Core defines reusable contracts for:
 
+- project-centered delegation
+- persistent responsibilities
+- auditable work orders
+- execution-provider identity and maturity
 - agent registry and capabilities
 - task coordination
 - workflow state
@@ -17,15 +21,40 @@ ACC Core defines reusable contracts for:
 
 ACC Core does not independently execute privileged work and does not create authority.
 
+## ACC V2 foundation contracts
+
+The V2 foundation introduces the durable operating chain:
+
+```text
+Projects
+→ Responsibilities
+→ Work Orders
+→ Delegation
+→ Execution
+→ Approval
+→ Verification
+→ Deployment
+→ Audit
+```
+
+New shared schemas:
+
+- `schemas/execution-provider.schema.json`
+- `schemas/work-order.schema.json`
+- `schemas/responsibility.schema.json`
+
+The execution-provider schema deliberately keeps `openai-dot` in `reserved` maturity with `executable=false`. That identifier is a future compatibility boundary, not a claim that ACC can currently execute a Dot.
+
 ## Authority model
 
 ```text
 Authorized Human Judgment
 → Oru’Valen / OMOS decision support
 → ACC
+→ Project / Responsibility / Work Order context
 → OCP policy + authorization
 → OEG governed execution
-→ agents / tools / adapters
+→ approved providers / agents / tools / adapters
 → verification + audit
 ```
 
@@ -35,6 +64,10 @@ Human authority remains final for privileged actions.
 
 The primary ACC platform repository is `ohi-stack/acc`. This repository is a shared module and must remain compatible with the versioned contracts declared there.
 
-## Current synchronization
+## Synchronization status
 
-Synchronized to ACC platform `v1.3.0` architecture on September 16, 2026.
+- Production ACC baseline: `v1.3.0`
+- ACC V2 delegation foundation: `2.0.0-alpha.1` pre-release
+- Contract synchronization date: September 29, 2026
+
+The V2 designation remains pre-release until the work-order/responsibility model is operational, documented, repeatable, verified, and deployed.
